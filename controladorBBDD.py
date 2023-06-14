@@ -66,6 +66,15 @@ def readInstructionFive():
     cu = conn.cursor()
     instruccion = f"DELETE FROM CLIENTES where CÓDIGO_CLIENTE='CT100'"
     cu.execute(instruccion)
+    conn.commit()
+    conn.close()
+    #Devuelve una lista con Tuplas
+
+def readInstructionSix():
+    conn = sql.connect("data.sqlite")
+    cu = conn.cursor()
+    instruccion = f"SELECT SUM(precio) AS suma_precio FROM productos"
+    cu.execute(instruccion)
     datosField = cu.fetchall()
     for fila in datosField:
         print(fila) 
@@ -74,7 +83,129 @@ def readInstructionFive():
     #Devuelve una lista con Tuplas
 
 
+def readInstructionSeven():
+    conn = sql.connect("data.sqlite")
+    cu = conn.cursor()
+    instruccion = f"SELECT AVG(precio) AS promedio_precios FROM productos"
+    cu.execute(instruccion)
+    datosField = cu.fetchall()
+    for fila in datosField:
+        print(fila) 
+    conn.commit()
+    conn.close()
+    #Devuelve una lista con Tuplas    
+
+def readInstructionEigth():
+    conn = sql.connect("data.sqlite")
+    cu = conn.cursor()
+    instruccion = f"SELECT COUNT(*) AS cantidad_registros FROM productos"
+    cu.execute(instruccion)
+    datosField = cu.fetchall()
+    for fila in datosField:
+        print(fila) 
+    conn.commit()
+    conn.close()
+    #Devuelve una lista con Tuplas    
+
+def readInstructionNine():
+    conn = sql.connect("data.sqlite")
+    cu = conn.cursor()
+    instruccion = f"SELECT MIN(precio) AS valor_minimo FROM productos"
+    cu.execute(instruccion)
+    datosField = cu.fetchall()
+    for fila in datosField:
+        print(fila) 
+    conn.commit()
+    conn.close()
+    #Devuelve una lista con Tuplas 
+
+def readInstructionTen():
+    conn = sql.connect("data.sqlite")
+    cu = conn.cursor()
+    instruccion = f"SELECT MAX(precio) AS valor_minimo FROM productos"
+    cu.execute(instruccion)
+    datosField = cu.fetchall()
+    for fila in datosField:
+        print(fila) 
+    conn.commit()
+    conn.close()
+    #Devuelve una lista con Tuplas    
+
+def readInstructionEleven():
+    conn = sql.connect("data.sqlite")
+    cu = conn.cursor()
+    instruccion = f""" SELECT C.EMPRESA, C.POBLACIÓN
+        FROM CLIENTES C
+        WHERE C."RESPONSABLE" IN (
+            SELECT "RESPONSABLE"
+            FROM CLIENTES
+            WHERE "RESPONSABLE" = 'EGGS POTATO'
+        )"""
+    cu.execute(instruccion)
+    datosField = cu.fetchall()
+    for fila in datosField:
+        print(fila) 
+    conn.commit()
+    conn.close()
+    #Devuelve una lista con Tuplas    
+
+def readInstructionTwelve():
+    conn = sql.connect("data.sqlite")
+    cu = conn.cursor()
+    instruccion = f""" SELECT P.SECCIÓN, COUNT(*) AS TOTAL
+        FROM PRODUCTOS_NUEVOS P
+        WHERE P.PAÍSDEORIGEN = (
+            SELECT PAÍSDEORIGEN
+            FROM PRODUCTOS_NUEVOS
+            WHERE NOMBREARTÍCULO = 'SERRUCHO'
+        )
+        GROUP BY P.SECCIÓN"""
+    cu.execute(instruccion)
+    datosField = cu.fetchall()
+    for fila in datosField:
+        print(fila) 
+    conn.commit()
+    conn.close()
+    #Devuelve una lista con Tuplas    
+
+def readInstructionThirteen():
+    conn = sql.connect("data.sqlite")
+    cu = conn.cursor()
+    instruccion = f""" SELECT P.SECCIÓN, COUNT(*) AS TOTAL
+        FROM PRODUCTOS_NUEVOS P
+        WHERE P.PAÍSDEORIGEN = (
+            SELECT PAÍSDEORIGEN
+            FROM PRODUCTOS_NUEVOS
+            WHERE NOMBREARTÍCULO = 'SERRUCHO'
+        )
+        GROUP BY P.SECCIÓN"""
+    cu.execute(instruccion)
+    datosField = cu.fetchall()
+    for fila in datosField:
+        print(fila) 
+    conn.commit()
+    conn.close()
+    #Devuelve una lista con Tuplas  
     
+def readInstructionFourteen():
+    conn = sql.connect("data.sqlite")
+    cu = conn.cursor()
+    instruccion = f""" SELECT P.SECCIÓN, COUNT(*) AS TOTAL
+        FROM PRODUCTOS_NUEVOS P
+        WHERE P.SECCIÓN IN (
+            SELECT SECCIÓN
+            FROM PRODUCTOS_NUEVOS
+            GROUP BY SECCIÓN
+            HAVING COUNT(*) > 5
+        )
+        GROUP BY P.SECCIÓN"""
+    cu.execute(instruccion)
+    datosField = cu.fetchall()
+    for fila in datosField:
+        print(fila) 
+    conn.commit()
+    conn.close()
+    #Devuelve una lista con Tuplas  
 
 
 
@@ -84,4 +215,12 @@ if __name__ == "__main__":
     # readInstructionThree()
     # readInstructionThree("madrid")
     # readInstructionFour()
-    readInstructionFive()
+    # readInstructionFive()
+    # readInstructionSix()
+    # readInstructionSeven()
+    # readInstructionEigth()
+    # readInstructionNine()
+    # readInstructionTen()
+    # readInstructionEleven()
+    # readInstructionThirteen()
+    readInstructionFourteen()
